@@ -72,26 +72,81 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+function SiteHeader() {
+  return (
+    <header className="border-b border-border bg-card/80 backdrop-blur">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+        <Link to="/" className="flex items-center gap-2">
+          <span className="text-2xl text-gold">☸</span>
+          <span className="font-display text-2xl font-semibold tracking-wide text-foreground">
+            Jyotish
+          </span>
+        </Link>
+        <nav className="flex items-center gap-6 text-sm font-medium">
+          <Link
+            to="/"
+            className="text-muted-foreground transition-colors hover:text-primary"
+            activeProps={{ className: "text-primary" }}
+            activeOptions={{ exact: true }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/about"
+            className="text-muted-foreground transition-colors hover:text-primary"
+            activeProps={{ className: "text-primary" }}
+          >
+            About
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="border-t border-border bg-card">
+      <div className="mx-auto max-w-5xl px-4 py-8 text-center">
+        <p className="font-display text-lg text-foreground">Jyotish — Vedic Astrology & Numerology</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Readings are generated instantly in your browser for guidance and reflection. Nothing you
+          enter is stored or sent anywhere.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Jyotish — Vedic Astrology & Numerology" },
+      {
+        name: "description",
+        content:
+          "Enter your name, date, time and place of birth to reveal your Mulank, Bhagyank, zodiac sign and birth chart.",
+      },
+      { property: "og:title", content: "Jyotish — Vedic Astrology & Numerology" },
+      {
+        property: "og:description",
+        content:
+          "Instant Vedic numerology and astrology: Mulank, destiny number, zodiac sign and kundli-style birth chart.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Karla:wght@300;400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +174,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="flex min-h-screen flex-col">
+        <SiteHeader />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <SiteFooter />
+      </div>
     </QueryClientProvider>
   );
 }
