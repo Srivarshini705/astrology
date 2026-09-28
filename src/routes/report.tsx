@@ -4,10 +4,12 @@ import { computeReport, NUMBER_MEANINGS, type BirthDetails } from "@/lib/astrolo
 import { BirthChart } from "@/components/BirthChart";
 
 const parseSearch = (s: Record<string, unknown>): BirthDetails => {
-  const name = typeof s.name === "string" ? s.name.slice(0, 100) : "";
-  const dob = typeof s.dob === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s.dob) ? s.dob : "";
-  const time = typeof s.time === "string" && /^\d{2}:\d{2}/.test(s.time) ? s.time : "";
-  const place = typeof s.place === "string" ? s.place.slice(0, 100) : "";
+  const name = typeof s["name"] === "string" ? s["name"].slice(0, 100) : "";
+  const dobRaw = s["dob"];
+  const dob = typeof dobRaw === "string" && /^\d{4}-\d{2}-\d{2}$/.test(dobRaw) ? dobRaw : "";
+  const timeRaw = s["time"];
+  const time = typeof timeRaw === "string" && /^\d{2}:\d{2}/.test(timeRaw) ? timeRaw : "";
+  const place = typeof s["place"] === "string" ? s["place"].slice(0, 100) : "";
   return { name, dob, time, place };
 };
 
@@ -47,7 +49,7 @@ function NumberCard({
   value: number;
   note: string;
 }) {
-  const meaning = NUMBER_MEANINGS[value];
+  const meaning = NUMBER_MEANINGS[value]!;
   return (
     <div className="rounded-xl border border-border bg-card p-6">
       <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">

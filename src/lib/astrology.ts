@@ -71,7 +71,7 @@ function nameSum(name: string, filter: (ch: string) => boolean): number {
     .toUpperCase()
     .split("")
     .filter((ch) => /[A-Z]/.test(ch) && filter(ch))
-    .reduce((s, ch) => s + LETTER_VALUES[ch], 0);
+    .reduce((s, ch) => s + (LETTER_VALUES[ch] ?? 0), 0);
 }
 
 const isVowel = (ch: string) => "AEIOU".includes(ch);
@@ -337,8 +337,8 @@ function dayOfYear(y: number, m: number, d: number): number {
 }
 
 export function computeReport(details: BirthDetails): AstrologyReport {
-  const [y, m, d] = details.dob.split("-").map(Number);
-  const [hh] = details.time.split(":").map(Number);
+  const [y = 2000, m = 1, d = 1] = details.dob.split("-").map(Number);
+  const [hh = 6] = details.time.split(":").map(Number);
   const doy = dayOfYear(y, m, d);
 
   const mulank = reduceNumber(d);
@@ -383,8 +383,8 @@ export function computeReport(details: BirthDetails): AstrologyReport {
     lifePath,
     destiny,
     soulUrge,
-    zodiac: ZODIAC_SIGNS[sunIdx],
-    ascendant: ZODIAC_SIGNS[ascIdx],
+    zodiac: ZODIAC_SIGNS[sunIdx]!,
+    ascendant: ZODIAC_SIGNS[ascIdx]!,
     ascendantIndex: ascIdx,
     placements,
   };
