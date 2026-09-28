@@ -328,7 +328,7 @@ export const ZODIAC_SIGNS: ZodiacInfo[] = [
 
 function zodiacFromDate(month: number, day: number): number {
   const cutoffs = [20, 19, 21, 20, 21, 21, 23, 23, 23, 23, 22, 22]; // day each sign begins, per month
-  const idx = day >= (cutoffs[month - 1] ?? 21) ? month : month - 1;
+  const idx = day >= (cutoffs[month - 1] ?? 21) ? month - 3 : month - 4;
   return mod(idx, 12);
 }
 
