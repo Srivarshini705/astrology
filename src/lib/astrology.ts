@@ -385,6 +385,7 @@ export function computeReport(details: BirthDetails): AstrologyReport {
     soulUrge,
     zodiac: ZODIAC_SIGNS[sunIdx],
     ascendant: ZODIAC_SIGNS[ascIdx],
+    ascendantIndex: ascIdx,
     placements,
   };
 }
