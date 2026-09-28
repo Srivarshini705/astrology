@@ -185,7 +185,7 @@ function ReportPage() {
             </span>
           </p>
           <div className="mt-6">
-            <BirthChart ascendantIndex={ascendant ? report.ascendant && 0 : 0} placements={report.placements} ascendantIndex0={0} />
+            <BirthChart ascendantIndex={report.ascendantIndex} placements={report.placements} />
           </div>
           <div className="mt-6 grid grid-cols-2 gap-2 text-xs sm:grid-cols-3">
             {report.placements.map((p) => (

@@ -43,6 +43,7 @@ export interface AstrologyReport {
   soulUrge: number;
   zodiac: ZodiacInfo;
   ascendant: ZodiacInfo;
+  ascendantIndex: number;
   placements: PlanetPlacement[];
 }
 
